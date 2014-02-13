@@ -227,9 +227,6 @@ class Store(object):
         elif image.object_id is None:
             raise TypeError('image.object_id must be set; it is currently '
                             'None however')
-        elif not isinstance(image.object_id, numbers.Integral):
-            raise TypeError('image.object_id must be integer, not ' +
-                            repr(image.object_id))
         f = self.get_file(image.object_type, image.object_id,
                           image.width, image.height, image.mimetype)
         for method in 'read', 'readline', 'readlines':

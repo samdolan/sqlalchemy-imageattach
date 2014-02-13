@@ -44,7 +44,7 @@ def guess_extension(mimetype):
         # returned '.jpeg' instead.
         # We stick with '.jpe' to maintain consistency with
         # already stored objects.
-        suffix = '.jpe'
+        suffix = '.jpeg'
     else:
         suffix = mimetypes.guess_extension(mimetype)
     return suffix
@@ -60,11 +60,9 @@ class BaseFileSystemStore(Store):
         self.path = path
 
     def get_path(self, object_type, object_id, width, height, mimetype):
-        id_segment_a = str(object_id % 1000)
-        id_segment_b = str(object_id // 1000)
         suffix = guess_extension(mimetype)
-        filename = '{0}.{1}x{2}{3}'.format(object_id, width, height, suffix)
-        return object_type, id_segment_a, id_segment_b, filename
+        filename = '{0}-{1}x{2}{3}'.format(object_id, width, height, suffix)
+        return object_type, filename
 
     def put_file(self, file, object_type, object_id, width, height, mimetype,
                  reproducible):
